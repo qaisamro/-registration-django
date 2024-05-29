@@ -1,1 +1,1 @@
-# -registration-django
+# registration-django
