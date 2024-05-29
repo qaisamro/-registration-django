@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}EDU Course Registration{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="display-4">EDU Course Registration</h1>
+            <p class="lead">Sign in to your account or register if you don't have one yet.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary">Sign In</a>
+            <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'images/addcourse.png' %}" alt="Image of university courses" class="img-fluid">
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h2>Services</h2>
+            <ul>
+                <li>Search for courses</li>
+                <li>Add courses to your schedule</li>
+                <li>View your current course schedule</li>
+                <li>Receive notifications and reminders for important deadlines</li>
+                <li>Generate reports and analytics on course enrollment and popularity</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Contact Us</h2>
+            <p>For more information or assistance, you can contact us via email or phone.</p>
+            <p>Email: edu_course_registration@gmailcom</p>
+            <p>Phone: +972595373460</p>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h2>Account Management</h2>
+            <ul>
+                <li>Change your email address</li>
+                <li>Change your password</li>
+                <li>Change your first and last name</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Reports and Analytics</h2>
+            <p>View detailed reports and analytics on course enrollment, course popularity, and other relevant data.</p>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

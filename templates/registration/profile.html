@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mt-5 text-center">Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3 text-center">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="img-fluid mt-3" style="max-width: 200px;">
+        </div>
+    </div>
+
+   
+    <div class="mt-5">
+        <h2>Reminders</h2>
+        <div class="list-group">
+            {% if reminders %}
+                {% for reminder in reminders %}
+                    <div class="list-group-item">
+                        <h5 class="mb-1">{{ reminder.reminder_type }}</h5>
+                        <p class="mb-1">{{ reminder.reminder_date|date:"F j, Y, g:i a" }}</p>
+                        <small>Reminder details here</small>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    No reminders available.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Search Courses{% endblock %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Search Courses</h2>
+    <form method="GET" action="{% url 'search_courses' %}">
+        <div class="input-group mb-3">
+            <input type="text" name="query" class="form-control" placeholder="Search for courses" aria-label="Search for courses" aria-describedby="button-addon2" value="{{ query }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-6">
+            {% if no_results %}
+                <div class="alert alert-warning" role="alert">
+                    No courses found matching your search.
+                </div>
+            {% else %}
+                <ul class="list-group">
+                    {% for course in courses %}
+                        <li class="list-group-item"><a href="{% url 'view_course_details' course.id %}">{{ course.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

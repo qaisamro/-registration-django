@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Sent Notifications{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Notifications</h2>
+    <div class="list-group">
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Sender: {{ notification.sender.username }}</h5>
+                        <small>{{ notification.date }}</small>
+                    </div>
+                    <p class="mb-1"><strong>Type:</strong> {{ notification.notification_type }}</p>
+                    <p class="mb-1"><strong>Message:</strong> {{ notification.message }}</p>
+                    <small>Receiver: {{ notification.user.username }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No notifications sent.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

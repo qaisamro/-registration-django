@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Course Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ course.name }}</h2>
+            <p class="card-text">{{ course.description }}</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Instructor: {{ course.instructor }}</li>
+                <li class="list-group-item">Capacity: {{ course.capacity }}</li>
+                <li class="list-group-item">Schedule: {{ course.schedule.days }} {{ course.schedule.start_time }} - {{ course.schedule.end_time }}</li>
+                <li class="list-group-item">Room No: {{ course.schedule.room_no }}</li>
+                <li class="list-group-item">Prerequisites: 
+                    {% if course.prerequisites.exists %}
+                        {% for prereq in course.prerequisites.all %}
+                            {{ prereq.prerequisite_course.name }}
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        None
+                    {% endif %}
+                </li>
+            </ul>
+            <form method="post" action="{% url 'add_course' course_id=course.id %}">
+                {% csrf_token %}
+                <input type="submit" value="Add Course" class="btn btn-primary mt-3">
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mt-3" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

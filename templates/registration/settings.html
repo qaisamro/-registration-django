@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="display-4">Settings</h1>
+    <p class="lead">Email: {{ user.email }}</p>
+    <p class="lead">First name: {{ user.first_name }}</p>
+    <p class="lead">Last name: {{ user.last_name }}</p>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title">Password Change</h2>
+            <form method="post" action="{% url 'password_change' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title">Password Reset</h2>
+            <form method="post" action="{% url 'password_reset' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title">Email Change</h2>
+            <form method="post" action="{% url 'email_change' %}">
+                {% csrf_token %}
+                {{ email_form.as_p }}
+                <button type="submit" class="btn btn-primary">Change Email</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title">First Name Change</h2>
+            <form method="post" action="{% url 'first_name_change' %}">
+                {% csrf_token %}
+                {{ first_name_form.as_p }}
+                <button type="submit" class="btn btn-primary">Change First Name</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h2 class="card-title">Last Name Change</h2>
+            <form method="post" action="{% url 'last_name_change' %}">
+                {% csrf_token %}
+                {{ last_name_form.as_p }}
+                <button type="submit" class="btn btn-primary">Change Last Name</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

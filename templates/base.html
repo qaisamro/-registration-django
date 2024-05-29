@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>{% block title %}EDU Course Registration{% endblock %}</title>
+</head>
+<body style="padding-bottom: 60px;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(187, 213, 235);">
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" style="height: 40px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link lead" href="{% url 'home' %}">Home</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+              <a class="nav-link lead" href="{% url 'search_courses' %}">Search Courses</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link lead" href="{% url 'view_schedule' %}">Schedule</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link lead" href="{% url 'course_reports' %}">Reports</a>
+          </li>
+          {% endif %}
+          {% block additional_nav_items %}{% endblock %}
+      </ul>
+    </div>
+
+        <div class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+              <a href="{% url 'notification' %}" class="rounded-circle border mr-2" style="width: 30px; height: 30px; overflow: hidden;">
+                  <img src="{% static 'images/notification.jpg' %}" alt="Notification" style="width: 100%; height: 100%; object-fit: cover;">
+              </a>
+      
+              <div class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: sienna;">
+                      <img src="{% static 'images/user.jpg' %}" alt="User Image" class="rounded-circle mr-2" style="width: 30px; height: 30px;">
+                      {{ user.first_name }} {{ user.last_name }}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                      <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
+                      <div class="dropdown-divider"></div>
+                      <form method="post" action="{% url 'logout' %}">
+                          {% csrf_token %}
+                          <button type="submit" class="dropdown-item" style="color: rgb(68, 68, 68); background-color: transparent; border: none;">
+                              Logout
+                          </button> 
+                      </form>
+                  </div>
+              </div>
+          </div>
+          {% else %}
+          <div class="d-flex flex-column flex-lg-row align-items-center">
+              <a class="nav-item nav-link lead" style="color: rgb(68, 68, 68);" href="{% url 'login' %}">Login</a>
+              <a class="nav-item nav-link lead" style="color: rgb(68, 68, 68);" href="{% url 'register' %}">Register</a>
+          </div>
+          {% endif %}
+      </div>
+      
+    </div>
+</nav>
+<div class="container" style="padding-bottom: 60px;">
+    {% block content %}{% endblock %}
+</div>
+{% comment %} <footer class="bg-light text-center text-lg-start" style="position: fixed; left: 0; bottom: 0; width: 100%;">
+  <div class="container p-4">
+    <div class="row">
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">EDU Course Registration</h5>
+        <p>
+          Some text about the website. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Links</h5>
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a href="#!" class="text-dark">Link 1</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 2</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 3</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 4</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-0">Links</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-dark">Link 5</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 6</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 7</a>
+          </li>
+          <li>
+            <a href="#!" class="text-dark">Link 8</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 EDU Course Registration
+  </div>
+</footer> {% endcomment %}
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
